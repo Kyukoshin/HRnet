@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import Header from "../components/Header/Header";      
+
 const CreateEmployee = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -29,7 +31,9 @@ const CreateEmployee = () => {
   };
 
   return (
+  
     <div className="container">
+      <Header page = 'create'/>
       <h2>Create Employee</h2>
       <form id="create-employee">
         <label htmlFor="first-name">First Name</label>

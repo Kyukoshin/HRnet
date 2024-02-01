@@ -13,7 +13,7 @@ const CreateEmployee = () => {
     city: '',
     state: '',
     zipCode: '',
-    department: 'Sales', // Default department
+    department: '',
   });
 
   const handleInputChange = (e) => {
@@ -22,12 +22,7 @@ const CreateEmployee = () => {
   };
 
   const saveEmployee = () => {
-    // Implement your saveEmployee logic here
-    // You can access form data using formData state
     console.log('Employee data:', formData);
-
-    // Display a confirmation modal or perform other actions as needed
-    // For simplicity, let's just log a confirmation message for now
     console.log('Employee Created!');
   };
 

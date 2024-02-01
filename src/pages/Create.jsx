@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import Header from "../components/Header/Header";      
+import Header from "../components/Header/Header";
+import statesData from '../data/states';
 
 const CreateEmployee = () => {
   const [formData, setFormData] = useState({
@@ -31,9 +32,9 @@ const CreateEmployee = () => {
   };
 
   return (
-  
+
     <div className="container">
-      <Header page = 'create'/>
+      <Header page='create' />
       <h2>Create Employee</h2>
       <form id="create-employee">
         <label htmlFor="first-name">First Name</label>
@@ -59,7 +60,12 @@ const CreateEmployee = () => {
 
           <label htmlFor="state">State</label>
           <select name="state" id="state" onChange={handleInputChange} value={formData.state}>
-            {/* Options for states */}
+            <option value="" disabled>Select a state</option>
+            {statesData.map((state) => (
+              <option key={state.abbreviation} value={state.abbreviation}>
+                {state.name}
+              </option>
+            ))}
           </select>
 
           <label htmlFor="zip-code">Zip Code</label>

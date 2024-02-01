@@ -9,4 +9,4 @@ function List() {
     );
 }
 
-export default List;List
+export default List;

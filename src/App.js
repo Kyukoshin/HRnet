@@ -4,7 +4,6 @@ import Create from './pages/Create'
 import List from './pages/List'
 import Error from './pages/Error'
 
-
 export default function App() {
   return (
       <Routes>

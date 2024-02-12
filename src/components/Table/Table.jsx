@@ -1,6 +1,6 @@
 import './Table.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUsers } from '../../redux/userSlice';
+import { selectUsers, purgeUsers } from '../../redux/userSlice';
 import { useState, useEffect } from 'react';
 import '../../../node_modules/tabulator-tables/dist/css/tabulator.min.css';
 import { ReactTabulator } from 'react-tabulator';
@@ -36,9 +36,14 @@ function Table() {
 
   useEffect(() => {
     console.log(users);
-    const newData = JSON.parse(JSON.stringify(users)); 
+    const newData = JSON.parse(JSON.stringify(users));
     setData(newData);
   }, [users]);
+
+  //Purge persistor button
+  const handlePurge = () => {
+    dispatch(purgeUsers())
+  };
 
   return (
     <div>
@@ -72,6 +77,11 @@ function Table() {
         onPageChange={handlePageChange}
         onSizeChange={handleSizeChange}
       />
+
+      <button onClick={handlePurge}>
+        Purge Persistor
+      </button>
+
     </div>
   );
 }

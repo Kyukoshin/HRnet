@@ -1,25 +1,18 @@
+import React from 'react';
 import './Modal.css';
 
 const Modal = ({ isOpen, onClose, children }) => {
-  if (!isOpen) {
-    return null;
-  }
   return (
-    <div id="modal" className="modal">
-      <div className="modal-overlay"></div>
-      <div className="modal-container">
-        <div className="modal-content">
-          {/* <!--Content--> */}
-          <div className="content">{children}</div>
-          {/* <!--Footer--> */}
-          <div className="footer">
-            <button onClick={onClose} className="close-button">
-              Close
-            </button>
+    <>
+      {isOpen && (
+        <div className="modal-overlay" onClick={onClose}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close-btn" onClick={onClose}>&times;</span>
+            {children}
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

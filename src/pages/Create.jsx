@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../redux/userSlice';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Header from "../components/Header/Header";
 import statesData from '../data/states';
+import Modal from '../components/Modal/Modal'
 
 const CreateEmployee = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -26,6 +29,7 @@ const CreateEmployee = () => {
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
+  //Birth date handling
   const [showCalendar, setShowCalendar] = useState(false);
 
   const handleDateChange = (date) => {
@@ -37,6 +41,7 @@ const CreateEmployee = () => {
     setShowCalendar(true);
   };
 
+  //Start date handling
   const [showStartDateCalendar, setShowStartDateCalendar] = useState(false);
 
   const handleStartDateChange = (date) => {
@@ -51,9 +56,38 @@ const CreateEmployee = () => {
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
-  
+
+  //Modals handling
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalValidOpen, setModalValidOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    navigate('/');
+  };
+
+  const openModalValid = () => {
+    setModalValidOpen(true);
+  };
+
+  const closeModalValid = () => {
+    setModalValidOpen(false);
+  };
+
   const saveEmployee = () => {
-    // Convert Date objects to date-only string representations before dispatching
+    // Check if any field is empty
+    const isAnyFieldEmpty = Object.values(formData).some(value => !value);
+  
+    if (isAnyFieldEmpty) {
+      openModalValid()
+      return; // Prevent form submission if any field is empty
+    }
+  
+    // Convert field formats, and dates to date-only string before saving
     const serializableData = {
       firstName: capitalizeFirstLetter(formData.firstName),
       lastName: capitalizeFirstLetter(formData.lastName),
@@ -61,12 +95,12 @@ const CreateEmployee = () => {
       startDate: formData.startDate.toISOString().split('T')[0],
       street: formData.street,
       city: capitalizeFirstLetter(formData.city),
-      state: formData.state, 
+      state: formData.state,
       zipCode: formData.zipCode,
       department: capitalizeFirstLetter(formData.department),
     };
-  
-    dispatch(addUser(serializableData));
+    openModal()
+    dispatch(addUser(serializableData))
   };
   
 
@@ -77,26 +111,26 @@ const CreateEmployee = () => {
       <h2>Create Employee</h2>
       <form id="create-employee">
         <label htmlFor="firstName">First Name</label>
-        <input type="text" id="firstName" onChange={handleInputChange} defaultValue={formData.firstName} />
+        <input type="text" id="firstName" onChange={handleInputChange} value={formData.firstName} required />
 
         <label htmlFor="lastName">Last Name</label>
-        <input type="text" id="lastName" onChange={handleInputChange} defaultValue={formData.lastName} />
+        <input type="text" id="lastName" onChange={handleInputChange} value={formData.lastName} required />
 
         <label htmlFor="dateOfBirth">Date of Birth</label>
-        <input id="dateOfBirth" type="text" value={formData.dateOfBirth.toDateString()} onClick={handleInputClick} readOnly />
+        <input id="dateOfBirth" type="text" value={formData.dateOfBirth.toDateString()} onClick={handleInputClick} readOnly required />
         {showCalendar && (<Calendar onChange={handleDateChange} value={formData.dateOfBirth} />)}
 
         <fieldset className="address">
           <legend>Address</legend>
 
           <label htmlFor="street">Street</label>
-          <input id="street" type="text" onChange={handleInputChange} defaultValue={formData.street} />
+          <input id="street" type="text" onChange={handleInputChange} value={formData.street} required />
 
           <label htmlFor="city">City</label>
-          <input id="city" type="text" onChange={handleInputChange} defaultValue={formData.city} />
+          <input id="city" type="text" onChange={handleInputChange} value={formData.city} required />
 
           <label htmlFor="state">State</label>
-          <select name="state" id="state" onChange={handleInputChange} defaultValue={formData.state}>
+          <select name="state" id="state" onChange={handleInputChange} value={formData.state} required>
             <option value="" disabled>Select a state</option>
             {statesData.map((state) => (
               <option key={state.abbreviation} value={state.abbreviation}>
@@ -106,29 +140,36 @@ const CreateEmployee = () => {
           </select>
 
           <label htmlFor="zipCode">Zip Code</label>
-          <input id="zipCode" type="number" onChange={handleInputChange} value={formData.zipCode} />
+          <input id="zipCode" type="number" pattern="\d{5}" onChange={handleInputChange} value={formData.zipCode} required />
         </fieldset>
 
         <label htmlFor="startDate">Start Date</label>
-        <input id="startDate" type="text" value={formData.startDate.toDateString()} onClick={handleStartDateInputClick} readOnly />
+        <input id="startDate" type="text" value={formData.startDate.toDateString()} onClick={handleStartDateInputClick} readOnly required />
         {showStartDateCalendar && (<Calendar onChange={handleStartDateChange} value={formData.startDate} />)}
 
         <label htmlFor="department">Department</label>
-        <select name="department" id="department" onChange={handleInputChange} value={formData.department}>
-          <option>Sales</option>
-          <option>Marketing</option>
-          <option>Engineering</option>
-          <option>Human Resources</option>
-          <option>Legal</option>
+        <select name="department" id="department" onChange={handleInputChange} value={formData.department} required>
+          <option value="" disabled>Select a department</option>
+          <option value="Sales">Sales</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Human Resources">Human Resources</option>
+          <option value="Legal">Legal</option>
         </select>
 
         <button type="button" onClick={saveEmployee}>
           Save
         </button>
       </form>
-      {/* Confirmation modal */}
-      <div id="confirmation" className="modal">
-        Employee Created!
+      <div>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <h2>Création réussie</h2>
+        <p>Les informations soumises sont bien enregistrées</p>
+      </Modal>
+      <Modal isOpen={isModalValidOpen} onClose={closeModalValid}>
+        <h2>Erreur</h2>
+        <p>Veuillez renseigner tous les champs</p>
+      </Modal>
       </div>
     </div>
   );

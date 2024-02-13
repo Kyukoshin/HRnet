@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../redux/userSlice';
+
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+
 import Header from "../components/Header/Header";
-import statesData from '../data/states';
 import Modal from '../components/Modal/Modal'
+
+import statesData from '../data/states';
+import departments from '../data/department'
 
 const CreateEmployee = () => {
   const dispatch = useDispatch();
@@ -27,6 +31,7 @@ const CreateEmployee = () => {
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [id]: value }));
+    console.log(formData)
   };
 
   //Birth date handling
@@ -81,12 +86,12 @@ const CreateEmployee = () => {
   const saveEmployee = () => {
     // Check if any field is empty
     const isAnyFieldEmpty = Object.values(formData).some(value => !value);
-  
+
     if (isAnyFieldEmpty) {
       openModalValid()
       return; // Prevent form submission if any field is empty
     }
-  
+
     // Convert field formats, and dates to date-only string before saving
     const serializableData = {
       firstName: capitalizeFirstLetter(formData.firstName),
@@ -102,7 +107,6 @@ const CreateEmployee = () => {
     openModal()
     dispatch(addUser(serializableData))
   };
-  
 
   return (
 
@@ -157,19 +161,21 @@ const CreateEmployee = () => {
           <option value="Legal">Legal</option>
         </select>
 
+        <br /><br />
+
         <button type="button" onClick={saveEmployee}>
           Save
         </button>
       </form>
       <div>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>Création réussie</h2>
-        <p>Les informations soumises sont bien enregistrées</p>
-      </Modal>
-      <Modal isOpen={isModalValidOpen} onClose={closeModalValid}>
-        <h2>Erreur</h2>
-        <p>Veuillez renseigner tous les champs</p>
-      </Modal>
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <h2>Création réussie</h2>
+          <p>Les informations soumises sont bien enregistrées</p>
+        </Modal>
+        <Modal isOpen={isModalValidOpen} onClose={closeModalValid}>
+          <h2>Erreur</h2>
+          <p>Veuillez renseigner tous les champs</p>
+        </Modal>
       </div>
     </div>
   );

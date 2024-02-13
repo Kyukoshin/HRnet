@@ -1,7 +1,7 @@
 import './Table.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUsers, purgeUsers } from '../../redux/userSlice';
-import { useState, useEffect } from 'react';
+import { selectUsers } from '../../redux/userSlice';
+import { React, useState, useEffect } from 'react';
 import '../../../node_modules/tabulator-tables/dist/css/tabulator.min.css';
 import { ReactTabulator } from 'react-tabulator';
 
@@ -40,10 +40,7 @@ function Table() {
     setData(newData);
   }, [users]);
 
-  //Purge persistor button
-  const handlePurge = () => {
-    dispatch(purgeUsers())
-  };
+  
 
   return (
     <div>
@@ -78,9 +75,7 @@ function Table() {
         onSizeChange={handleSizeChange}
       />
 
-      <button onClick={handlePurge}>
-        Purge Persistor
-      </button>
+      
 
     </div>
   );

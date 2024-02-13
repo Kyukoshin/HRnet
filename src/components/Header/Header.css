@@ -1,0 +1,13 @@
+header{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    width: -webkit-fill-available;
+    flex-wrap: wrap;
+    align-content: center;
+    margin: 1em;
+}
+
+.brand{
+    display: flex ;
+}

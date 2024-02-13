@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/flowerLogo.png';
 import employeeTableLogo from '../../assets/users-list.svg';
@@ -10,18 +11,19 @@ const Header = ({ page }) => {
   return page === 'list' ? (
     <header>
       <section className="brand">
-        <img
-          src={logo}
-          alt="wealthHealth logo"
-          className="brand-logo"
-          width={48}
-          height={48}
-        />
-        <p className="brand-text">HRNet</p>
+        <Link to="/" className="nav-link tooltip">
+          <img
+            src={logo}
+            alt="wealthHealth logo"
+            className="brand-logo"
+            width={48}
+            height={48}
+          />
+        </Link>
       </section>
       <nav aria-label="main navigation" className="nav-links">
         <Link to="/create" className="nav-link tooltip">
-          <span className="tooltiptext">Add employee</span>
+
           <img
             src={addEmployeeLogo}
             alt="add employee logo"
@@ -35,18 +37,19 @@ const Header = ({ page }) => {
   ) : (
     <header>
       <section className="brand">
-        <img
-          src={logo}
-          alt="wealthHealth logo"
-          className="brand-logo"
-          width={48}
-          height={48}
-        />
-        <p className="brand-text">HRNet</p>
+        <Link to="/" className="nav-link tooltip">
+          <img
+            src={logo}
+            alt="wealthHealth logo"
+            className="brand-logo"
+            width={48}
+            height={48}
+          />
+        </Link>
       </section>
       <nav aria-label="main navigation" className="nav-links">
         <Link to="/" className="nav-link tooltip">
-          <span className="tooltiptext">Employee list</span>
+
           <img
             src={employeeTableLogo}
             alt="employee table logo"

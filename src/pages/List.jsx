@@ -14,12 +14,12 @@ function List() {
     };
 
     return (
-        <div>
+        <div className='wrapList'>
             <Header page='list' />
-            <p>Employee list</p>
+            <h1>Employee list</h1>
             <Table />
 
-            <button onClick={handlePurge}>
+            <button onClick={handlePurge} className='purgeButton'>
                 Purge Persistor
             </button>
         </div>

@@ -52,12 +52,13 @@ function Table() {
   });
 
   return (
-    <div>
+    <div className='wrapTabulator'>
       <input
         type="text"
         placeholder="Search..."
         value={searchTerm}
         onChange={handleSearchChange}
+        className='searchTable'
       />
       <ReactTabulator
         key={Date.now()}
@@ -68,7 +69,7 @@ function Table() {
           responsiveLayout: 'collapse',
           pagination: 'local',
           paginationSize: 10,
-          paginationSizeSelector: [10, 25, 50, 100],
+          paginationSizeSelector: [5, 10, 25, 50, 100],
           paginationCounter: 'rows',
           langs: {
             default: {

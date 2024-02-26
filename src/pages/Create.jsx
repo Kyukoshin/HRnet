@@ -112,9 +112,13 @@ const CreateEmployee = () => {
 
     <div className="container">
       <Header page='create' />
-      <h2>Create Employee</h2>
+      <h1>Create Employee</h1>
       <form id="create-employee">
+
+      <fieldset className="address">
+          <legend>Personnal info</legend>
         <label htmlFor="firstName">First Name</label>
+
         <input type="text" id="firstName" onChange={handleInputChange} value={formData.firstName} required />
 
         <label htmlFor="lastName">Last Name</label>
@@ -123,6 +127,8 @@ const CreateEmployee = () => {
         <label htmlFor="dateOfBirth">Date of Birth</label>
         <input id="dateOfBirth" type="text" value={formData.dateOfBirth.toDateString()} onClick={handleInputClick} readOnly required />
         {showCalendar && (<Calendar onChange={handleDateChange} value={formData.dateOfBirth} />)}
+
+        </fieldset>
 
         <fieldset className="address">
           <legend>Address</legend>
@@ -147,24 +153,29 @@ const CreateEmployee = () => {
           <input id="zipCode" type="number" pattern="\d{5}" onChange={handleInputChange} value={formData.zipCode} required />
         </fieldset>
 
-        <label htmlFor="startDate">Start Date</label>
-        <input id="startDate" type="text" value={formData.startDate.toDateString()} onClick={handleStartDateInputClick} readOnly required />
-        {showStartDateCalendar && (<Calendar onChange={handleStartDateChange} value={formData.startDate} />)}
+        <fieldset className="address">
+          <legend>Job details</legend>
 
-        <label htmlFor="department">Department</label>
-        <select name="department" id="department" onChange={handleInputChange} value={formData.department} required>
-          <option value="" disabled>Select a department</option>
-          <option value="Sales">Sales</option>
-          <option value="Marketing">Marketing</option>
-          <option value="Engineering">Engineering</option>
-          <option value="Human Resources">Human Resources</option>
-          <option value="Legal">Legal</option>
-        </select>
+          <label htmlFor="startDate">Start Date</label>
+          <input id="startDate" type="text" value={formData.startDate.toDateString()} onClick={handleStartDateInputClick} readOnly required />
+          {showStartDateCalendar && (<Calendar onChange={handleStartDateChange} value={formData.startDate} />)}
+
+          <label htmlFor="department">Department</label>
+          <select name="department" id="department" onChange={handleInputChange} value={formData.department} required>
+            <option value="" disabled>Select a department</option>
+            <option value="Sales">Sales</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Human Resources">Human Resources</option>
+            <option value="Legal">Legal</option>
+          </select>
+
+        </fieldset>
 
         <br /><br />
 
-        <button type="button" onClick={saveEmployee}>
-          Save
+        <button type="button" onClick={saveEmployee} className='submitButton'>
+          Create employee
         </button>
       </form>
       <div>

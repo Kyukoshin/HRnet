@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../redux/userSlice';
+import { Helmet } from "react-helmet";
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -111,22 +112,29 @@ const CreateEmployee = () => {
   return (
 
     <div className="container">
+
+      <Helmet>
+        <meta
+          name="description"
+          content="Page to create nbew employees to be added to the employees file" />
+      </Helmet>
+
       <Header page='create' />
       <h1>Create Employee</h1>
       <form id="create-employee">
 
-      <fieldset className="address">
+        <fieldset className="address">
           <legend>Personnal info</legend>
-        <label htmlFor="firstName">First Name</label>
 
-        <input type="text" id="firstName" onChange={handleInputChange} value={formData.firstName} required />
+          <label htmlFor="firstName">First Name</label>
+          <input type="text" id="firstName" onChange={handleInputChange} value={formData.firstName} required />
 
-        <label htmlFor="lastName">Last Name</label>
-        <input type="text" id="lastName" onChange={handleInputChange} value={formData.lastName} required />
+          <label htmlFor="lastName">Last Name</label>
+          <input type="text" id="lastName" onChange={handleInputChange} value={formData.lastName} required />
 
-        <label htmlFor="dateOfBirth">Date of Birth</label>
-        <input id="dateOfBirth" type="text" value={formData.dateOfBirth.toDateString()} onClick={handleInputClick} readOnly required />
-        {showCalendar && (<Calendar onChange={handleDateChange} value={formData.dateOfBirth} />)}
+          <label htmlFor="dateOfBirth">Date of Birth</label>
+          <input id="dateOfBirth" type="text" value={formData.dateOfBirth.toDateString()} onClick={handleInputClick} readOnly required />
+          {showCalendar && (<Calendar onChange={handleDateChange} value={formData.dateOfBirth} />)}
 
         </fieldset>
 

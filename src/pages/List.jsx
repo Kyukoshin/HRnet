@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import Header from "../components/Header/Header";
 import Table from "../components/Table/Table";
 import { purgeUsers } from '../redux/userSlice';
+import { Helmet } from "react-helmet";
 
 function List() {
 
@@ -15,6 +16,13 @@ function List() {
 
     return (
         <div className='wrapList'>
+
+            <Helmet>
+                <meta
+                    name="description"
+                    content="Display of a table of all available employees"/>
+            </Helmet>
+
             <Header page='list' />
             <h1>Employee list</h1>
             <Table />

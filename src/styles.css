@@ -70,4 +70,8 @@ fieldset{
   border: 1px solid red;
 }
 
+.validation-message{
+  font-size: 12px;
+}
+
 

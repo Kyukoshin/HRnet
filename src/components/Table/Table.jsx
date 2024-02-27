@@ -32,14 +32,15 @@ function Table() {
         },
         width: 150,
       },
-      { Header: "Department", accessor: "department" },
-      { Header: "Street", accessor: "street" },
-      { Header: "City", accessor: "city" },
-      { Header: "State", accessor: "state" },
+      { Header: "Department", accessor: "department", width: 200 },
+      { Header: "Street", accessor: "street", width: 250 },
+      { Header: "City", accessor: "city", width: 150 },
+      { Header: "State", accessor: "state", width: 100 },
       { Header: "Zip Code", accessor: "zipCode", width: 100 },
     ],
     []
   );
+  
 
   const [data, setData] = useState(users);
 
@@ -121,9 +122,9 @@ function Table() {
           {'<'}
         </button>
         <span>
-          Page{' '}
+           Page {' '}
           <strong>
-            {pageIndex + 1} of {pageOptions.length}
+            {pageIndex + 1} of {pageOptions.length} 
           </strong>{' '}
         </span>
         <button onClick={() => nextPage()} disabled={!canNextPage}>
@@ -134,7 +135,7 @@ function Table() {
         </button>
         </div>
         <span>
-          <label>Show{' '}
+          <label>Display{' '}
             <select
               value={pageSize}
               onChange={(e) => {
@@ -147,7 +148,7 @@ function Table() {
                 </option>
               ))}
             </select>{' '}
-            rows per page
+            lines per page
           </label>
         </span>
       </div>

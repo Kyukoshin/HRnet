@@ -10,7 +10,6 @@ Wealth health is a student project, consisting of migrating an existing JQuery p
 
 - [Features](#features)
 - [Installation](#installation)
-- [Usage](#usage)
 
 ## Features
 

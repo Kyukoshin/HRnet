@@ -11,3 +11,39 @@
     display: table;
 }
 
+.wrapTabulator{
+    width: -webkit-fill-available;
+    margin: 0 10em;
+    display: grid;
+}
+
+table {
+    border: 1px solid lightgray;
+  }
+  
+  tbody {
+    border-bottom: 1px solid lightgray;
+  }
+  
+  th {
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    padding: 2px 4px;
+  }
+  
+  tfoot {
+    color: gray;
+  }
+  
+  tfoot th {
+    font-weight: normal;
+  }
+
+.pagination{
+    display: flex;
+    flex-flow: row;
+    height: 1.5em;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
